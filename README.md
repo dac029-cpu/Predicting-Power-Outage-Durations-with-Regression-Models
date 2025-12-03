@@ -1,1 +1,1 @@
-# Predicting-Outage-Duration-with-Regression-Models
+# Predicting Outage Duration with Regression Models
