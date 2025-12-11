@@ -141,7 +141,7 @@ Figure 1 depicts the distribution of binned outage durations. The plot shows tha
   frameborder="0"
 ></iframe>
 
-Figure 2 shows the distribution of the cause categories. The most populated categories are <b> severe weather <\b> and <b> intentional attack <\b>, while the least populated categories are <b> fuel supply emergency <\b> and <b> islanding <\b>
+Figure 2 shows the distribution of the cause categories. The most populated categories are <b>severe weather</b> and <b>intentional attack</b>, while the least populated categories are <b>fuel supply emergency</b> and <b>islanding</b>
 
 <iframe
   src="assets/figure_3.html"
@@ -150,7 +150,7 @@ Figure 2 shows the distribution of the cause categories. The most populated cate
   frameborder="0"
 ></iframe>
 
-Figure 3 shows the number of outages with a detailed cause for each cause category. Unsurprisingly <b> severe weather <\b> has the highest count, but weirdly enough <b> intentional attack <\b> has one of the lowest, despite being one of the most populated categories from Figure 2. This is likely due to the fact that intentional attacks are a quite straightforward cause, meaning there is not much need to add additional details.
+Figure 3 shows the number of outages with a detailed cause for each cause category. Unsurprisingly <b>severe weather</b> has the highest count, but weirdly enough <b>intentional attack</b> has one of the lowest, despite being one of the most populated categories from Figure 2. This is likely due to the fact that intentional attacks are a quite straightforward cause, meaning there is not much need to add additional details.
 
 <iframe
   src="assets/figure_4.html"
@@ -174,6 +174,14 @@ Figure 5 depicts the relationship between cause category and outage duration. We
 
 ## Aggregates
 
-'| CAUSE.CATEGORY                |   avg_duration |   median_duration |   count |\n|:------------------------------|---------------:|------------------:|--------:|\n| fuel supply emergency         |      13484     |            3960   |      38 |\n| severe weather                |       3899.71  |            2464   |     741 |\n| equipment failure             |       1850.56  |             224   |      54 |\n| public appeal                 |       1468.45  |             455   |      69 |\n| system operability disruption |        747.092 |             222   |     120 |\n| intentional attack            |        521.934 |              92.5 |     332 |\n| islanding                     |        200.545 |              77.5 |      44 |'
+| CAUSE.CATEGORY                |   avg_duration |   median_duration |   count |
+|:------------------------------|---------------:|------------------:|--------:|
+| fuel supply emergency         |        13484.00 |            3960.0 |      38 |
+| severe weather                |         3899.71 |            2464.0 |     741 |
+| equipment failure             |         1850.56 |             224.0 |      54 |
+| public appeal                 |         1468.45 |             455.0 |      69 |
+| system operability disruption |          747.09 |             222.0 |     120 |
+| intentional attack            |          521.93 |              92.5 |     332 |
+| islanding                     |          200.55 |              77.5 |      44 |
 
-I grouped on the cause categories and found the mean, median, and count for each category. We see that <b> fuel supply emergency <\b> and <b> severe weather <\b> has the highest averages (both median and mean), while <b>intentional attacks <\b> and <b> islanding <\b> has the lowest. 
+I grouped on the cause categories and found the mean, median, and count for each category. We see that <b>fuel supply emergency</b> and <b>severe weather</b> has the highest averages (both median and mean), while <b>intentional attacks</b> and <b>islanding</b> has the lowest. 
