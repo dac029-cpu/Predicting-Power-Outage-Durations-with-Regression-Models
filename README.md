@@ -198,22 +198,35 @@ I tested missingness dependecy for the <code>OUTAGE.DURATION</code> column. I lo
 
 To do this, I performed permutation chi-square tests comparing the <code>DURATION_MISSING</code>, a missingness indicator, to both <code>CAUSE.CATEGORY</code> and <code>MONTH</code>
 
-### <code>CAUSE.CATEGORY</code>
+### CAUSE.CATEGORY
 
 The hypotheses are as follows:
-Null: Missingness of <code>OUTAGE.DURATION</code>is independent of <code>CAUSE.CATEGORY</code>; any differences in missingness rates across causes are due to random chance.
-Alternative: Missingness of <code>OUTAGE.DURATION</code> depends on <code>CAUSE.CATEGORY</code>; at least one cause category has a different probability of missing duration than the others.
+Null Hypothesis: Missingness of <code>OUTAGE.DURATION</code>is independent of <code>CAUSE.CATEGORY</code>; any differences in missingness rates across causes are due to random chance.
+Alternative Hypothesis: Missingness of <code>OUTAGE.DURATION</code> depends on <code>CAUSE.CATEGORY</code>; at least one cause category has a different probability of missing duration than the others.
 
 <iframe src="assets/figure_6" width="800" height="600"></iframe>
 
-For <code>CAUSE.CATEGORY</code>, the observed chi-square statistic is extremely large with a value of around 131.9, and a p-value of essentially 0. With this, I reject the null hypothesis, and accept that missing outage durations depend on the observation’s cause category.
+For <code>CAUSE.CATEGORY</code>, the observed chi-square statistic is extremely large with a value of around 131.9, and a p-value of essentially 0. With this, I reject the null hypothesis, and accept that missing outage durations likely depends on the observation’s cause category.
 
-### <code>MONTH</code>
+### MONTH
 
 The hypotheses are as follows:
-Null: Missingness of <code>OUTAGE.DURATION</code> is independent of <code>MONTH</code>; any differences in missingness across months is due to random chance.
-Alternative: Missingness of <code>OUTAGE.DURATION</code> depends on <code>MONTH</code>; at least one month has a different probability of missing duration than the others.
+Null Hypothesis: Missingness of <code>OUTAGE.DURATION</code> is independent of <code>MONTH</code>; any differences in missingness across months is due to random chance.
+Alternative Hypothesis: Missingness of <code>OUTAGE.DURATION</code> depends on <code>MONTH</code>; at least one month has a different probability of missing duration than the others.
 
 <iframe src="assets/figure_7.html" width="800" height="600"></iframe>
 
-For <code>MONTH</code>, the observed chi-square statistic is around 13.74, and the p-value is 0.239. With this, I fail to reject the null hypothesis, and acknowledge that the month of the year is not affected when outage duration is missing. 
+For <code>MONTH</code>, the observed chi-square statistic is around 13.74, and the p-value is 0.239. With this, I fail to reject the null hypothesis, and acknowledge that the month of the year is likely not affected when outage duration is missing. 
+
+# Hypothesis Testing
+
+For my hypothesis tests, I will be testing to see if <code>OUTAGE.DURATION</code> is distributed the same across all cause categories. 
+
+Null Hypothesis: The mean outage duration is the same across all cause categories, and any differences are due to random variation. 
+Alternate Hypothesis: At least one cause category has a different mean outage duration, indicating that outage duration depends on the outage cause and differences are not due to random variation.
+
+I will be performing a permutation test using a one-way ANOVA F-statistic as the test statistic and a significance level of 0.05.
+
+<iframe src="assets/figure_8.html" width="800" height="600"></iframe>
+
+From Figure 8, we see that the observed F value is around 42.17, and the p-value is essentially 0. With this, I reject the null hypothesis at the 5% significance level. I believe that with this there is strong evidence that outage duration does depend on cause category.
