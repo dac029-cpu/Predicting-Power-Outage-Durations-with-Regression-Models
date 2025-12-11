@@ -128,4 +128,9 @@ The first rew rows of the dataframe is shown below.
 
 We look at the distribution of binned outage duration. We notice that there is a logarithmic relationship between count and binned outage duration, meaning most outages are relatively short. 
 
-<iframe src="assets/figure_1.html" width="800" height="600"></iframe>
+<iframe
+  src="assets/figure_1.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
