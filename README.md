@@ -190,6 +190,30 @@ I grouped on the cause categories and found the mean, median, and count for each
 
 ## NMAR Analysis
 
-In the dataset, one variable that could be NMAR is <code>Customers Affected</code>. I believe that whether a utility reports this value likely depends on how many customers were actually affected. For example, they may be less inclined to record very small or very large events for various reasons. 
+In the dataset, one variable that could be NMAR is <code>CUSTOMERS.AFFECTED</code>. I believe that whether a utility reports this value likely depends on how many customers were actually affected. For example, they may be less inclined to record very small or very large events for various reasons. 
 
 ## Missingness Dependency
+
+I tested missingness dependecy for the <code>OUTAGE.DURATION</code> column. I looked at the distribution of <code>CAUSE.CATEGORY</code> and <code>MONTH</code> when <code>OUTAGE.DURATION</code> is missing vs not missing. 
+
+To do this, I performed permutation chi-square tests comparing the <code>DURATION_MISSING</code>, a missingness indicator, to both <code>CAUSE.CATEGORY</code> and <code>MONTH</code>
+
+### <code>CAUSE.CATEGORY</code>
+
+The hypotheses are as follows:
+Null: Missingness of <code>OUTAGE.DURATION</code>is independent of <code>CAUSE.CATEGORY</code>; any differences in missingness rates across causes are due to random chance.
+Alternative: Missingness of <code>OUTAGE.DURATION</code> depends on <code>CAUSE.CATEGORY</code>; at least one cause category has a different probability of missing duration than the others.
+
+<iframe src="assets/figure_6" width="800" height="600"></iframe>
+
+For <code>CAUSE.CATEGORY</code>, the observed chi-square statistic is extremely large with a value of around 131.9, and a p-value of essentially 0. With this, I reject the null hypothesis, and accept that missing outage durations depend on the observation’s cause category.
+
+### <code>MONTH</code>
+
+The hypotheses are as follows:
+Null: Missingness of <code>OUTAGE.DURATION</code> is independent of <code>MONTH</code>; any differences in missingness across months is due to random chance.
+Alternative: Missingness of <code>OUTAGE.DURATION</code> depends on <code>MONTH</code>; at least one month has a different probability of missing duration than the others.
+
+<iframe src="assets/figure_7.html" width="800" height="600"></iframe>
+
+For <code>MONTH</code>, the observed chi-square statistic is around 13.74, and the p-value is 0.239. With this, I fail to reject the null hypothesis, and acknowledge that the month of the year is not affected when outage duration is missing. 
