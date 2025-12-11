@@ -170,7 +170,7 @@ Figure 4 shows the comparison between raw demand loss and log transformed demand
   frameborder="0"
 ></iframe>
 
-Figure 5 depicts the relationship between cause category and outage duration. We see that outage durations vary widely across cause categories, with severe weather showing both the highest spread and some of the longest outages overall. Categories like intentional attack, equipment failure, and system operability disruption tend to have shorter and more consistent outage durations, reflected by their much tighter boxplots. Meanwhile, fuel supply emergencies exhibit several extreme long-duration outliers, suggesting that despite being rare, these events can lead to prolonged outages.
+Figure 5 depicts the relationship between cause category and outage duration. Notice that outage durations vary widely across cause categories, with severe weather showing both the highest spread and some of the longest outages overall. Categories like intentional attack, equipment failure, and system operability disruption tend to have shorter and more consistent outage durations, reflected by their much tighter boxplots. Meanwhile, fuel supply emergencies exhibit several extreme long-duration outliers, suggesting that despite being rare, these events can lead to prolonged outages.
 
 ## Aggregates
 
@@ -184,4 +184,12 @@ Figure 5 depicts the relationship between cause category and outage duration. We
 | intentional attack            |          521.93 |              92.5 |     332 |
 | islanding                     |          200.55 |              77.5 |      44 |
 
-I grouped on the cause categories and found the mean, median, and count for each category. We see that <b>fuel supply emergency</b> and <b>severe weather</b> has the highest averages (both median and mean), while <b>intentional attacks</b> and <b>islanding</b> has the lowest. 
+I grouped on the cause categories and found the mean, median, and count for each category. Notice that <b>fuel supply emergency</b> and <b>severe weather</b> has the highest averages (both median and mean), while <b>intentional attacks</b> and <b>islanding</b> has the lowest. 
+
+# Assessment of Missingness
+
+## NMAR Analysis
+
+In the dataset, one variable that could be NMAR is <code>Customers Affected</code>. I believe that whether a utility reports this value likely depends on how many customers were actually affected. For example, they may be less inclined to record very small or very large events for various reasons. 
+
+## Missingness Dependency
