@@ -1,5 +1,6 @@
 # Predicting Outage Duration with Regression Models
 
+## Final Project for DSC80 - UCSD
 By David Chen
 
 # Introduction
@@ -107,6 +108,8 @@ Next, we combine <code>OUTAGE.START.DATE</code> and <code>OUTAGE.START.TIME</cod
 
 I also replaced all values of 0 in <code>OUTAGE.DURATION</code>, <code>DEMAND.LOSS.MW</code>, and <code>CUSTOMERS.AFFECTED</code> with nan, since it is fair to assume that values of 0 for these columns is likely due to missingness. This will help ease our missingness analysis later on. 
 
+The first rew rows of the dataframe is shown below.
+
 |   YEAR |   MONTH | U.S._STATE   | NERC.REGION   | CLIMATE.REGION     | CAUSE.CATEGORY     | CAUSE.CATEGORY.DETAIL   |   OUTAGE.DURATION | OUTAGE.START        | OUTAGE.RESTORATION   |   DEMAND.LOSS.MW |   CUSTOMERS.AFFECTED |   TOTAL.CUSTOMERS | duration_bin   | DURATION_MISSING   |
 |-------:|--------:|:-------------|:--------------|:-------------------|:-------------------|:------------------------|------------------:|:--------------------|:---------------------|-----------------:|---------------------:|------------------:|:---------------|:-------------------|
 |   2011 |       7 | Minnesota    | MRO           | East North Central | severe weather     | nan                     |              3060 | 2011-07-01 17:00:00 | 2011-07-03 20:00:00  |              nan |                70000 |           2595696 | 1–3 days       | False              |
@@ -117,4 +120,6 @@ I also replaced all values of 0 in <code>OUTAGE.DURATION</code>, <code>DEMAND.LO
 
 # Exploratory Data Analysis
 
+## Univariate Analysis
 
+We look at the distribution of binned outage duration. We notice that there is a logarithmic relationship between count and binned outage duration, meaning most outages are relatively short. 
