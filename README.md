@@ -29,7 +29,7 @@ The original DataFrame consists of 1534 rows, each corresponding to a specific o
     <tr>
       <td>MONTH</td>
       <td>The month an outage occurred</td>
-      <td>Numeric</td>
+      <td>Temporal</td>
     </tr>
     <tr>
       <td>US.STATE</td>
@@ -64,22 +64,22 @@ The original DataFrame consists of 1534 rows, each corresponding to a specific o
     <tr>
       <td>OUTAGE.START.DATE</td>
       <td>The start date of the power outage</td>
-      <td>Numeric</td>
+      <td>Temporal</td>
     </tr>
     <tr>
       <td>OUTAGE.START.TIME</td>
       <td>The start time of the power outage</td>
-      <td>Numeric</td>
+      <td>Temporal</td>
     </tr>
     <tr>
       <td>OUTAGE.RESTORATION.DATE</td>
       <td>The end date of the power outage</td>
-      <td>Numeric</td>
+      <td>Temporal</td>
     </tr>
     <tr>
       <td>OUTAGE.RESTORATION.TIME</td>
       <td>The end time of the power outage</td>
-      <td>Numeric</td>
+      <td>Temporal</td>
     </tr>
     <tr>
       <td>DEMAND.LOSS.MW</td>
@@ -98,3 +98,23 @@ The original DataFrame consists of 1534 rows, each corresponding to a specific o
     </tr>
   </tbody>
 </table>
+
+# Data Cleaning
+
+First, I dropped all columns not used in my analysis, and kept only the variables from above, which are <code>YEAR</code>, <code>MONTH</code>, <code>US.STATE</code>, <code>NERC.REGION</code>, <code>CLIMATE.REGION</code>, <code>CAUSE.CATEGORY</code>, <code>CAUSE.CATEGORY.DETAIL</code>, <code>OUTAGE.DURATION</code>, <code>OUTAGE.START.DATE</code>, <code>OUTAGE.START.TIME</code>, <code>OUTAGE.RESTORATION.DATE</code>, <code>OUTAGE.RESTORATION.TIME</code>, <code>DEMAND.LOSS.MW</code>, <code>CUSTOMERS.AFFECTED</code>, <code>TOTAL.CUSTOMERS</code>
+
+Next, we combine <code>OUTAGE.START.DATE</code> and <code>OUTAGE.START.TIME</code> columns into <code>OUTAGE.START</code>, and simiarly for <code>OUTAGE.RESTORATION.DATE</code> and <code>OUTAGE.RESTORATION.TIME</code> into <code>OUTAGE.RESTORATION</code>. Essentially we condensed two columns describing time into one single column. This helps ease our analysis of these variables later on.
+
+I also replaced all values of 0 in <code>OUTAGE.DURATION</code>, <code>DEMAND.LOSS.MW</code>, and <code>CUSTOMERS.AFFECTED</code> with nan, since it is fair to assume that values of 0 for these columns is likely due to missingness. This will help ease our missingness analysis later on. 
+
+|   YEAR |   MONTH | U.S._STATE   | NERC.REGION   | CLIMATE.REGION     | CAUSE.CATEGORY     | CAUSE.CATEGORY.DETAIL   |   OUTAGE.DURATION | OUTAGE.START        | OUTAGE.RESTORATION   |   DEMAND.LOSS.MW |   CUSTOMERS.AFFECTED |   TOTAL.CUSTOMERS | duration_bin   | DURATION_MISSING   |
+|-------:|--------:|:-------------|:--------------|:-------------------|:-------------------|:------------------------|------------------:|:--------------------|:---------------------|-----------------:|---------------------:|------------------:|:---------------|:-------------------|
+|   2011 |       7 | Minnesota    | MRO           | East North Central | severe weather     | nan                     |              3060 | 2011-07-01 17:00:00 | 2011-07-03 20:00:00  |              nan |                70000 |           2595696 | 1–3 days       | False              |
+|   2014 |       5 | Minnesota    | MRO           | East North Central | intentional attack | vandalism               |                 1 | 2014-05-11 18:38:00 | 2014-05-11 18:39:00  |              nan |                  nan |           2640737 | <1 hr          | False              |
+|   2010 |      10 | Minnesota    | MRO           | East North Central | severe weather     | heavy wind              |              3000 | 2010-10-26 20:00:00 | 2010-10-28 22:00:00  |              nan |                70000 |           2586905 | 1–3 days       | False              |
+|   2012 |       6 | Minnesota    | MRO           | East North Central | severe weather     | thunderstorm            |              2550 | 2012-06-19 04:30:00 | 2012-06-20 23:00:00  |              nan |                68200 |           2606813 | 1–3 days       | False              |
+|   2015 |       7 | Minnesota    | MRO           | East North Central | severe weather     | nan                     |              1740 | 2015-07-18 02:00:00 | 2015-07-19 07:00:00  |              250 |               250000 |           2673531 | 1–3 days       | False              |
+
+# Exploratory Data Analysis
+
+
