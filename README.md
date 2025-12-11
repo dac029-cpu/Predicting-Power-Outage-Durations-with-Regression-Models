@@ -110,6 +110,8 @@ I also replaced all values of 0 in <code>OUTAGE.DURATION</code>, <code>DEMAND.LO
 
 The first rew rows of the dataframe is shown below.
 
+<div style="overflow-x: auto; white-space: pre;">
+<pre>
 |   YEAR |   MONTH | U.S._STATE   | NERC.REGION   | CLIMATE.REGION     | CAUSE.CATEGORY     | CAUSE.CATEGORY.DETAIL   |   OUTAGE.DURATION | OUTAGE.START        | OUTAGE.RESTORATION   |   DEMAND.LOSS.MW |   CUSTOMERS.AFFECTED |   TOTAL.CUSTOMERS | duration_bin   | DURATION_MISSING   |
 |-------:|--------:|:-------------|:--------------|:-------------------|:-------------------|:------------------------|------------------:|:--------------------|:---------------------|-----------------:|---------------------:|------------------:|:---------------|:-------------------|
 |   2011 |       7 | Minnesota    | MRO           | East North Central | severe weather     | nan                     |              3060 | 2011-07-01 17:00:00 | 2011-07-03 20:00:00  |              nan |                70000 |           2595696 | 1–3 days       | False              |
@@ -117,9 +119,13 @@ The first rew rows of the dataframe is shown below.
 |   2010 |      10 | Minnesota    | MRO           | East North Central | severe weather     | heavy wind              |              3000 | 2010-10-26 20:00:00 | 2010-10-28 22:00:00  |              nan |                70000 |           2586905 | 1–3 days       | False              |
 |   2012 |       6 | Minnesota    | MRO           | East North Central | severe weather     | thunderstorm            |              2550 | 2012-06-19 04:30:00 | 2012-06-20 23:00:00  |              nan |                68200 |           2606813 | 1–3 days       | False              |
 |   2015 |       7 | Minnesota    | MRO           | East North Central | severe weather     | nan                     |              1740 | 2015-07-18 02:00:00 | 2015-07-19 07:00:00  |              250 |               250000 |           2673531 | 1–3 days       | False              |
+</pre>
+</div>
 
 # Exploratory Data Analysis
 
 ## Univariate Analysis
 
 We look at the distribution of binned outage duration. We notice that there is a logarithmic relationship between count and binned outage duration, meaning most outages are relatively short. 
+
+<iframe src="assets/figure_1.html" width="800" height="600"></iframe>
