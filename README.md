@@ -117,6 +117,10 @@ The original DataFrame consists of 1534 rows, each corresponding to a specific o
       <td>3 month running mean of the Oceanic El Niño/La Niña (ONI) index referring to the cold and warm episodes by season.</td>
       <td>Numeric</td>
     </tr>
+    <tr>
+      <td>PC.REALGSP.STATE</td>
+      <td>Per capita real gross state product (GSP) in the U.S. state.</td>
+      <td>Numeric</td>
   </tbody>
 </table>
 
@@ -132,13 +136,13 @@ The first rew rows of the dataframe is shown below.
 
 <div style="overflow-x: auto; white-space: pre;">
 <pre>
-|   YEAR |   MONTH | U.S._STATE   | NERC.REGION   | CLIMATE.REGION     | CAUSE.CATEGORY     | CAUSE.CATEGORY.DETAIL   |   OUTAGE.DURATION | OUTAGE.START        | OUTAGE.RESTORATION   |   DEMAND.LOSS.MW |   CUSTOMERS.AFFECTED |   TOTAL.CUSTOMERS |   POPPCT_URBAN |   POPDEN_URBAN |   AREAPCT_URBAN |   ANOMALY.LEVEL |
-|-------:|--------:|:-------------|:--------------|:-------------------|:-------------------|:------------------------|------------------:|:--------------------|:---------------------|-----------------:|---------------------:|------------------:|---------------:|---------------:|----------------:|----------------:|
-|   2011 |       7 | Minnesota    | MRO           | East North Central | severe weather     | nan                     |              3060 | 2011-07-01 17:00:00 | 2011-07-03 20:00:00  |              nan |                70000 |           2595696 |          73.27 |           2279 |            2.14 |            -0.3 |
-|   2014 |       5 | Minnesota    | MRO           | East North Central | intentional attack | vandalism               |                 1 | 2014-05-11 18:38:00 | 2014-05-11 18:39:00  |              nan |                  nan |           2640737 |          73.27 |           2279 |            2.14 |            -0.1 |
-|   2010 |      10 | Minnesota    | MRO           | East North Central | severe weather     | heavy wind              |              3000 | 2010-10-26 20:00:00 | 2010-10-28 22:00:00  |              nan |                70000 |           2586905 |          73.27 |           2279 |            2.14 |            -1.5 |
-|   2012 |       6 | Minnesota    | MRO           | East North Central | severe weather     | thunderstorm            |              2550 | 2012-06-19 04:30:00 | 2012-06-20 23:00:00  |              nan |                68200 |           2606813 |          73.27 |           2279 |            2.14 |            -0.1 |
-|   2015 |       7 | Minnesota    | MRO           | East North Central | severe weather     | nan                     |              1740 | 2015-07-18 02:00:00 | 2015-07-19 07:00:00  |              250 |               250000 |           2673531 |          73.27 |           2279 |            2.14 |             1.2 |
+|   YEAR |   MONTH | U.S._STATE   | NERC.REGION   | CLIMATE.REGION     | CAUSE.CATEGORY     | CAUSE.CATEGORY.DETAIL   |   OUTAGE.DURATION | OUTAGE.START        | OUTAGE.RESTORATION   |   DEMAND.LOSS.MW |   CUSTOMERS.AFFECTED |   TOTAL.CUSTOMERS |   POPPCT_URBAN |   POPDEN_URBAN |   AREAPCT_URBAN |   ANOMALY.LEVEL |   PC.REALGSP.STATE |
+|-------:|--------:|:-------------|:--------------|:-------------------|:-------------------|:------------------------|------------------:|:--------------------|:---------------------|-----------------:|---------------------:|------------------:|---------------:|---------------:|----------------:|----------------:|-------------------:|
+|   2011 |       7 | Minnesota    | MRO           | East North Central | severe weather     | nan                     |              3060 | 2011-07-01 17:00:00 | 2011-07-03 20:00:00  |              nan |                70000 |           2595696 |          73.27 |           2279 |            2.14 |            -0.3 |              51268 |
+|   2014 |       5 | Minnesota    | MRO           | East North Central | intentional attack | vandalism               |                 1 | 2014-05-11 18:38:00 | 2014-05-11 18:39:00  |              nan |                  nan |           2640737 |          73.27 |           2279 |            2.14 |            -0.1 |              53499 |
+|   2010 |      10 | Minnesota    | MRO           | East North Central | severe weather     | heavy wind              |              3000 | 2010-10-26 20:00:00 | 2010-10-28 22:00:00  |              nan |                70000 |           2586905 |          73.27 |           2279 |            2.14 |            -1.5 |              50447 |
+|   2012 |       6 | Minnesota    | MRO           | East North Central | severe weather     | thunderstorm            |              2550 | 2012-06-19 04:30:00 | 2012-06-20 23:00:00  |              nan |                68200 |           2606813 |          73.27 |           2279 |            2.14 |            -0.1 |              51598 |
+|   2015 |       7 | Minnesota    | MRO           | East North Central | severe weather     | nan                     |              1740 | 2015-07-18 02:00:00 | 2015-07-19 07:00:00  |              250 |               250000 |           2673531 |          73.27 |           2279 |            2.14 |             1.2 |              54431 |
 </pre>
 </div>
 
@@ -269,7 +273,7 @@ This model achieved a test MAE of 2812.73, which is quite large and can definite
 
 # Final Model
 
-For the final model, I used the following features for my model:
+For the final model, I chose the following features for my model:
 <ul>
   <li><code>DEMAND.LOSS.MW</code></li>
   <li><code>TOTAL.CUSTOMERS</code> </li>
@@ -289,10 +293,18 @@ For the final model, I used the following features for my model:
   <li><code>PC.REALGSP.STATE</code></li>
 </ul>
 
-<code>DEMAND.LOSS.MW</code> was added since larger demand loss indicates a more severe disruption, which can be linked to outage duration. <code>TOTAL.CUSTOMERS</code> was added because regions with more total customers could have more complex power grids, which can be associated with restoration length and outage duration. The urban indicators <code>POPPCT_URBAN</code>, <code>POPDEN_URBAN</code>, and <code>AREAPCT_URBAN</code> were included because urban areas typically have higher power usage, which means restoration could be more complex, which has an effect on outage duration. <code>YEAR</code> was included since restoration processes likely changes over time, and due to the wide range of time covered by the dataset, the year the outage occurred in could have an impact on its duration. <code>MONTH</code> and <code>OUTAGE.START.HOUR</code> were included since depending on the time of the month or the day, restoration processes or response time could be different, having a potential impact on outage duration. <code>U.S._STATE</code> and <code>NERC.REGION</code> were included due to different states and regions having different power grid infrastructures. <code>CLIMATE.REGION</code> and <code>ANOMALY.LEVEL</code> were included due to the large impact climate has on power grids, as seen by the category <b>severe weather</b> in <code>CAUSE.CATEGORY</code>. <code>PC.REALGSP.STATE</code> was included due to the potential correlation between state economic strength and power grid infrastructure. 
+<code>DEMAND.LOSS.MW</code> was chosen since larger demand loss indicates a more severe disruption, which I thought could be linked to outage duration. <code>TOTAL.CUSTOMERS</code> was chosen since regions with more total customers could have more complex power grids, which is correlated to restoration length and outage duration. The urban indicators <code>POPPCT_URBAN</code>, <code>POPDEN_URBAN</code>, and <code>AREAPCT_URBAN</code> were included because urban areas typically have higher power usage, indicating a more complex restoration process, which has an effect on outage duration. <code>YEAR</code> was selected since restoration processes likely changes over time, and due to the wide range of time covered by the dataset, the year the outage occurred in could have an impact on its duration. <code>MONTH</code> and <code>OUTAGE.START.HOUR</code> were chosen since restoration processes or response time could be different depending on the season of the month or the time of the day. <code>U.S._STATE</code> and <code>NERC.REGION</code> were included due to different states and regions having different power grid infrastructures. <code>CLIMATE.REGION</code> and <code>ANOMALY.LEVEL</code> were selected due to the large impact climate has on power grids, as seen by the category <b>severe weather</b> in <code>CAUSE.CATEGORY</code>. <code>PC.REALGSP.STATE</code> was chosen due to the potential correlation between state economic strength and power grid infrastructure. 
 
 A Random Forest Regression model was chosen for its ability to model nonlinear relationships and interactions between predictors that are unlikely to be captured by a linear model. I tried 3 different values for each hyperparameter I used, which includ the number of trees (100, 300, 500), tree depth (none, 10, 20), and minimum leaf size (1, 5, 10). They were selected using 5-fold GridSearchCV, optimizing MAE to balance bias and variance.
 
 The final model achieved a test MAE of 2495.96, which is significantly lower than that of the baseline model, showing an improved predictive performance.
 
 # Fairness Analysis
+
+For the fairness analysis, I defined Group X as outages with high demand loss and Group Y as outages with low demand loss, where demand loss was binarized using the median of <code>DEMAND.LOSS.MW</code>. The evaluation metric I chose was RMSE. 
+
+Null Hypothesis: the model is fair with respect to demand loss, the RMSE for high-demand and low-demand outages is approximately equal, and any observed difference is due to random variation.
+Alternative Hypothesis: the model is unfair with respect to demand loss, the RMSE differs between high-demand and low-demand outages.
+The test statistic was the difference in RMSE (high − low), and a permutation test with 5,000 resamples was used at a significance level of 0.05 to approximate the null distribution.
+
+The observed RMSE difference is -1451.86, and the resulting p-value is 0.5602, which is not statistically significant. This shows that there is insufficient evidence to reject the null hypothesis, and we do not find strong evidence that the model performs worse for outages with higher demand loss.
