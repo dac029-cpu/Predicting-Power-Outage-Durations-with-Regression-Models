@@ -151,38 +151,18 @@ The first rew rows of the dataframe is shown below.
 
 ## Univariate Analysis
 
-<iframe
-  src="assets/figure_1.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
+<iframe src="assets/figure_1.html" style="width:100%; height:450px; border:0;"></iframe>
 
 Figure 1 depicts the distribution of binned outage durations. The plot shows that as each day passes, the number of outage still not resolved decrease significantly. This logarithmic relationship shows that extended outages are rare compared to shorter ones.
-<iframe
-  src="assets/figure_2.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
+<iframe src="assets/figure_2.html" style="width:100%; height:450px; border:0;"></iframe>
 
 Figure 2 shows the distribution of the cause categories. The most populated categories are <b>severe weather</b> and <b>intentional attack</b>, while the least populated categories are <b>fuel supply emergency</b> and <b>islanding</b>
 
-<iframe
-  src="assets/figure_3.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
+<iframe src="assets/figure_3.html" style="width:100%; height:450px; border:0;"></iframe>
 
 Figure 3 shows the number of outages with a detailed cause for each cause category. Unsurprisingly <b>severe weather</b> has the highest count, but weirdly enough <b>intentional attack</b> has one of the lowest, despite being one of the most populated categories from Figure 2. This is likely due to the fact that intentional attacks are a quite straightforward cause, meaning there is not much need to add additional details.
 
-<iframe
-  src="assets/figure_4.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
+<iframe src="assets/figure_4.html" style="width:100%; height:450px; border:0;"></iframe>
 
 Figure 4 shows the comparison between raw demand loss and log transformed demand loss. The raw demand loss values are extremely right-skewed, with most outages involving very small demand loss and a few rare events reaching high loss. After applying a log transformation, the distribution becomes much more balanced and approximately bell-shaped.
 
