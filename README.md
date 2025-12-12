@@ -121,6 +121,7 @@ The original DataFrame consists of 1534 rows, each corresponding to a specific o
       <td>PC.REALGSP.STATE</td>
       <td>Per capita real gross state product (GSP) in the U.S. state.</td>
       <td>Numeric</td>
+    </tr>
   </tbody>
 </table>
 
