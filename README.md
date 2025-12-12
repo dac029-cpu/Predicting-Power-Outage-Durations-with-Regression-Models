@@ -229,7 +229,7 @@ The hypotheses are as follows:
 Null Hypothesis: Missingness of <code>OUTAGE.DURATION</code>is independent of <code>CAUSE.CATEGORY</code>; any differences in missingness rates across causes are due to random chance.
 Alternative Hypothesis: Missingness of <code>OUTAGE.DURATION</code> depends on <code>CAUSE.CATEGORY</code>; at least one cause category has a different probability of missing duration than the others.
 
-<iframe src="assets/figure_6" width="800" height="600"></iframe>
+<iframe src="assets/figure_6.html" width="800" height="600"></iframe>
 
 For <code>CAUSE.CATEGORY</code>, the observed chi-square statistic is extremely large with a value of around 131.9, and a p-value of essentially 0. With this, I reject the null hypothesis, and accept that missing outage durations likely depends on the observation’s cause category.
 
@@ -266,7 +266,7 @@ It is worth to note that some columns in the dataset are not known at the time o
 
 # Baseline Model
 
-The baseline model I used is a regression model that predicts <code>OUTAGE.DURATION</code> using <code>DEMAND.LOSS.MW</code> (quantitative), <code>YEAR</code> (quantitative/temporal), and <code>CLIMATE.REGION</code> (nominal). The numeric columns (<code>DEMAND.LOSS.MW</code> and <code>YEAR</code>) are median-imputed and standardized, while the categorical column (<code>CLIMATE.REGION</code>) is imputed with the most frequent value and one-hot encoded. 
+The baseline model I used is a regression model that predicts <code>OUTAGE.DURATION</code> using <code>DEMAND.LOSS.MW</code> (quantitative), <code>YEAR</code> (temporal), and <code>CLIMATE.REGION</code> (nominal). The numeric columns (<code>DEMAND.LOSS.MW</code> and <code>YEAR</code>) are median-imputed and standardized, while the categorical column (<code>CLIMATE.REGION</code>) is imputed with the most frequent value and one-hot encoded. 
 
 LinearRegression is used to learn the best-fit relationship between these transformed columns and <code>OUTAGE.DURATION</code>, then evaluated with MAE on a held-out test set.
 
@@ -276,9 +276,6 @@ This model achieved a test MAE of 2812.73, which is quite large and can definite
 
 For the final model, I chose the following features for my model:
 <ul>
-  <li><code>DEMAND.LOSS.MW</code></li>
-  <li><code>TOTAL.CUSTOMERS</code> </li>
-  <li><code>POPPCT_URBAN</code></li>
   <li><code>DEMAND.LOSS.MW</code></li>
   <li><code>TOTAL.CUSTOMERS</code> </li>
   <li><code>POPPCT_URBAN</code></li>
@@ -308,6 +305,6 @@ Null Hypothesis: the model is fair with respect to demand loss, the RMSE for hig
 Alternative Hypothesis: the model is unfair with respect to demand loss, the RMSE differs between high-demand and low-demand outages.
 The test statistic was the difference in RMSE (high − low), and a permutation test with 5,000 resamples was used at a significance level of 0.05 to approximate the null distribution.
 
-<iframe src="assets/figure_8.html" width="800" height="600"></iframe>
+<iframe src="assets/figure_9.html" width="800" height="600"></iframe>
 
 The observed RMSE difference is -1451.86, and the resulting p-value is 0.5602, which is not statistically significant. This shows that there is insufficient evidence to reject the null hypothesis, and we do not find strong evidence that the model performs worse for outages with higher demand loss.
