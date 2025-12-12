@@ -307,4 +307,6 @@ Null Hypothesis: the model is fair with respect to demand loss, the RMSE for hig
 Alternative Hypothesis: the model is unfair with respect to demand loss, the RMSE differs between high-demand and low-demand outages.
 The test statistic was the difference in RMSE (high − low), and a permutation test with 5,000 resamples was used at a significance level of 0.05 to approximate the null distribution.
 
+<iframe src="assets/figure_8.html" width="800" height="600"></iframe>
+
 The observed RMSE difference is -1451.86, and the resulting p-value is 0.5602, which is not statistically significant. This shows that there is insufficient evidence to reject the null hypothesis, and we do not find strong evidence that the model performs worse for outages with higher demand loss.
