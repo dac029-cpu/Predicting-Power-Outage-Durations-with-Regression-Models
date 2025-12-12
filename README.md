@@ -266,7 +266,7 @@ It is worth to note that some columns in the dataset are not known at the time o
 
 # Baseline Model
 
-The baseline model I used is a regression model that predicts <code>OUTAGE.DURATION</code> using <code>DEMAND.LOSS.MW</code> (quantitative), <code>YEAR</code> (quantitative/temporal), and <code>CLIMATE.REGION</code> (nominal). The numeric columns (<code>DEMAND.LOSS.MW</code> and <code>YEAR) are median-imputed and standardized, while the categorical column (<code>CLIMATE.REGION</code>) is imputed with the most frequent value and one-hot encoded. 
+The baseline model I used is a regression model that predicts <code>OUTAGE.DURATION</code> using <code>DEMAND.LOSS.MW</code> (quantitative), <code>YEAR</code> (quantitative/temporal), and <code>CLIMATE.REGION</code> (nominal). The numeric columns (<code>DEMAND.LOSS.MW</code> and <code>YEAR</code>) are median-imputed and standardized, while the categorical column (<code>CLIMATE.REGION</code>) is imputed with the most frequent value and one-hot encoded. 
 
 LinearRegression is used to learn the best-fit relationship between these transformed columns and <code>OUTAGE.DURATION</code>, then evaluated with MAE on a held-out test set.
 
