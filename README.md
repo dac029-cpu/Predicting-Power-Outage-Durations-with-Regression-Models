@@ -188,12 +188,7 @@ Figure 4 shows the comparison between raw demand loss and log transformed demand
 
 ## Bivariate Analysis
 
-<iframe
-  src="assets/figure_5.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
+<iframe src="assets/figure_5.html" style="width:100%; height:450px; border:0;"></iframe>
 
 Figure 5 depicts the relationship between cause category and outage duration. Notice that outage durations vary widely across cause categories, with severe weather showing both the highest spread and some of the longest outages overall. Categories like intentional attack, equipment failure, and system operability disruption tend to have shorter and more consistent outage durations, reflected by their much tighter boxplots. Meanwhile, fuel supply emergencies exhibit several extreme long-duration outliers, suggesting that despite being rare, these events can lead to prolonged outages.
 
@@ -229,7 +224,7 @@ The hypotheses are as follows:
 Null Hypothesis: Missingness of <code>OUTAGE.DURATION</code>is independent of <code>CAUSE.CATEGORY</code>; any differences in missingness rates across causes are due to random chance.
 Alternative Hypothesis: Missingness of <code>OUTAGE.DURATION</code> depends on <code>CAUSE.CATEGORY</code>; at least one cause category has a different probability of missing duration than the others.
 
-<iframe src="assets/figure_6.html" width="800" height="600"></iframe>
+<iframe src="assets/figure_6.html" style="width:100%; height:450px; border:0;"></iframe>
 
 For <code>CAUSE.CATEGORY</code>, the observed chi-square statistic is extremely large with a value of around 131.9, and a p-value of essentially 0. With this, I reject the null hypothesis, and accept that missing outage durations likely depends on the observation’s cause category.
 
@@ -239,7 +234,7 @@ The hypotheses are as follows:
 Null Hypothesis: Missingness of <code>OUTAGE.DURATION</code> is independent of <code>MONTH</code>; any differences in missingness across months is due to random chance.
 Alternative Hypothesis: Missingness of <code>OUTAGE.DURATION</code> depends on <code>MONTH</code>; at least one month has a different probability of missing duration than the others.
 
-<iframe src="assets/figure_7.html" width="800" height="600"></iframe>
+<iframe src="assets/figure_7.html" style="width:100%; height:450px; border:0;"></iframe>
 
 For <code>MONTH</code>, the observed chi-square statistic is around 13.74, and the p-value is 0.239. With this, I fail to reject the null hypothesis, and acknowledge that the month of the year is likely not affected when outage duration is missing. 
 
@@ -252,7 +247,7 @@ Alternate Hypothesis: At least one cause category has a different mean outage du
 
 I will be performing a permutation test using a one-way ANOVA F-statistic as the test statistic and a significance level of 0.05.
 
-<iframe src="assets/figure_8.html" width="800" height="600"></iframe>
+<iframe src="assets/figure_8.html" style="width:100%; height:450px; border:0;"></iframe>
 
 From Figure 8, we see that the observed F value is around 42.17, and the p-value is essentially 0. With this, I reject the null hypothesis at the 5% significance level. I believe that with this there is strong evidence that outage duration does depend on cause category.
 
@@ -305,6 +300,6 @@ Null Hypothesis: the model is fair with respect to demand loss, the RMSE for hig
 Alternative Hypothesis: the model is unfair with respect to demand loss, the RMSE differs between high-demand and low-demand outages.
 The test statistic was the difference in RMSE (high − low), and a permutation test with 5,000 resamples was used at a significance level of 0.05 to approximate the null distribution.
 
-<iframe src="assets/figure_9.html" width="800" height="600"></iframe>
+<iframe src="assets/figure_9.html" style="width:100%; height:450px; border:0;"></iframe>
 
 The observed RMSE difference is -1451.86, and the resulting p-value is 0.5602, which is not statistically significant. This shows that there is insufficient evidence to reject the null hypothesis, and we do not find strong evidence that the model performs worse for outages with higher demand loss.
