@@ -9,7 +9,7 @@ In this project, I analyzed a power outage dataset, which covers all instances o
 
 The dataset details power outage data, such as outage duration, cause of outage, outage start time. It also contains other relevant information including geographical data, climate data, electric consumption data, etc. 
 
-The question I will be tackling in my analysis will be what are the most critical predictors for outage duration, that is to say, which variables have the largest effect on outage duration length. To do this, I will be building a regression model that finds the variables with the most impact on outage duration. This will be very important for the energy sector, as it allows them to know what exactly to focus on preventing when trying to reduce the length of outages.
+The question I will be tackling in my analysis will be what are the most critical predictors for outage duration, that is to say, which variables have the largest effect on outage duration length. To do this, I will be building a regression model that finds the variables with the most impact on outage duration. This will be very important for the energy companies, as it allows them to understand which factors are more responsible for longer outages, and can help them prioritize mitigation efforts.
 
 The original DataFrame consists of 1534 rows, each corresponding to a specific outage, and 57 columns, each correpsonding to a variable. I will only be focusing on a few variables for my analysis:
 
@@ -97,6 +97,26 @@ The original DataFrame consists of 1534 rows, each corresponding to a specific o
       <td>Total number of customers served in the U.S. State the outage occured in</td>
       <td>Numeric</td>
     </tr>
+    <tr>
+      <td>POPPCT_URBAN</td>
+      <td>Percentage of the total population of the U.S. state represented by the urban population (in %)</td>
+      <td>Numeric</td>
+    </tr>
+    <tr>
+      <td>POPDEN_URBAN</td>
+      <td>Population density of the urban areas (persons per square mile)</td>
+      <td>Numeric</td>
+    </tr>
+    <tr>
+      <td>AREAPCT_URBAN</td>
+      <td>Percentage of the land area of the U.S. state represented by the land area of the urban areas (in %)</td>
+      <td>Numeric</td>
+    </tr>
+    <tr>
+      <td>ANOMALY.LEVEL</td>
+      <td>3 month running mean of the Oceanic El Niño/La Niña (ONI) index referring to the cold and warm episodes by season.</td>
+      <td>Numeric</td>
+    </tr>
   </tbody>
 </table>
 
@@ -112,13 +132,13 @@ The first rew rows of the dataframe is shown below.
 
 <div style="overflow-x: auto; white-space: pre;">
 <pre>
-|   YEAR |   MONTH | U.S._STATE   | NERC.REGION   | CLIMATE.REGION     | CAUSE.CATEGORY     | CAUSE.CATEGORY.DETAIL   |   OUTAGE.DURATION | OUTAGE.START        | OUTAGE.RESTORATION   |   DEMAND.LOSS.MW |   CUSTOMERS.AFFECTED |   TOTAL.CUSTOMERS | duration_bin   | DURATION_MISSING   |
-|-------:|--------:|:-------------|:--------------|:-------------------|:-------------------|:------------------------|------------------:|:--------------------|:---------------------|-----------------:|---------------------:|------------------:|:---------------|:-------------------|
-|   2011 |       7 | Minnesota    | MRO           | East North Central | severe weather     | nan                     |              3060 | 2011-07-01 17:00:00 | 2011-07-03 20:00:00  |              nan |                70000 |           2595696 | 1–3 days       | False              |
-|   2014 |       5 | Minnesota    | MRO           | East North Central | intentional attack | vandalism               |                 1 | 2014-05-11 18:38:00 | 2014-05-11 18:39:00  |              nan |                  nan |           2640737 | <1 hr          | False              |
-|   2010 |      10 | Minnesota    | MRO           | East North Central | severe weather     | heavy wind              |              3000 | 2010-10-26 20:00:00 | 2010-10-28 22:00:00  |              nan |                70000 |           2586905 | 1–3 days       | False              |
-|   2012 |       6 | Minnesota    | MRO           | East North Central | severe weather     | thunderstorm            |              2550 | 2012-06-19 04:30:00 | 2012-06-20 23:00:00  |              nan |                68200 |           2606813 | 1–3 days       | False              |
-|   2015 |       7 | Minnesota    | MRO           | East North Central | severe weather     | nan                     |              1740 | 2015-07-18 02:00:00 | 2015-07-19 07:00:00  |              250 |               250000 |           2673531 | 1–3 days       | False              |
+|   YEAR |   MONTH | U.S._STATE   | NERC.REGION   | CLIMATE.REGION     | CAUSE.CATEGORY     | CAUSE.CATEGORY.DETAIL   |   OUTAGE.DURATION | OUTAGE.START        | OUTAGE.RESTORATION   |   DEMAND.LOSS.MW |   CUSTOMERS.AFFECTED |   TOTAL.CUSTOMERS |   POPPCT_URBAN |   POPDEN_URBAN |   AREAPCT_URBAN |   ANOMALY.LEVEL |
+|-------:|--------:|:-------------|:--------------|:-------------------|:-------------------|:------------------------|------------------:|:--------------------|:---------------------|-----------------:|---------------------:|------------------:|---------------:|---------------:|----------------:|----------------:|
+|   2011 |       7 | Minnesota    | MRO           | East North Central | severe weather     | nan                     |              3060 | 2011-07-01 17:00:00 | 2011-07-03 20:00:00  |              nan |                70000 |           2595696 |          73.27 |           2279 |            2.14 |            -0.3 |
+|   2014 |       5 | Minnesota    | MRO           | East North Central | intentional attack | vandalism               |                 1 | 2014-05-11 18:38:00 | 2014-05-11 18:39:00  |              nan |                  nan |           2640737 |          73.27 |           2279 |            2.14 |            -0.1 |
+|   2010 |      10 | Minnesota    | MRO           | East North Central | severe weather     | heavy wind              |              3000 | 2010-10-26 20:00:00 | 2010-10-28 22:00:00  |              nan |                70000 |           2586905 |          73.27 |           2279 |            2.14 |            -1.5 |
+|   2012 |       6 | Minnesota    | MRO           | East North Central | severe weather     | thunderstorm            |              2550 | 2012-06-19 04:30:00 | 2012-06-20 23:00:00  |              nan |                68200 |           2606813 |          73.27 |           2279 |            2.14 |            -0.1 |
+|   2015 |       7 | Minnesota    | MRO           | East North Central | severe weather     | nan                     |              1740 | 2015-07-18 02:00:00 | 2015-07-19 07:00:00  |              250 |               250000 |           2673531 |          73.27 |           2279 |            2.14 |             1.2 |
 </pre>
 </div>
 
@@ -230,3 +250,49 @@ I will be performing a permutation test using a one-way ANOVA F-statistic as the
 <iframe src="assets/figure_8.html" width="800" height="600"></iframe>
 
 From Figure 8, we see that the observed F value is around 42.17, and the p-value is essentially 0. With this, I reject the null hypothesis at the 5% significance level. I believe that with this there is strong evidence that outage duration does depend on cause category.
+
+# Prediction Problem
+
+The prediction problem I plan on tackling is the prediction of the <code>OUTAGE.DURATION</code> variable. This will be a regression problem, as I am attempting to regress <code>OUTAGE.DURATION</code> on a set of predictors, made of columns I selected in the Introduction. I chose <code>OUTAGE.DURATION</code> because a better understanding of which factors drive longer outages can help utilities prioritize mitigation efforts.
+
+The metric I used was MAE (mean absolute error), chosen for its interpretability and its relative robustness to outliers. I preferred MAE over RMSE (root mean squared error), since RMSE penalizes large errors more heavily and would be overly influenced by the outliers. As seen in the EDA section, <code>OUTAGE.DURATION</code> is highly skewed rather than bell-shaped, so using MAE helps prevent these outliers from dominating the evaluation.
+
+It is worth to note that some columns in the dataset are not known at the time of prediction, such as <code>CUSTOMERS.AFFECTED</code> and <code>CAUSE.CATEGORY</code>, so the regression model will not be using these variables. The exact variables I will be using will be elaborated more in the Final Model section. 
+
+# Baseline Model
+
+The baseline model I used is a regression model that predicts <code>OUTAGE.DURATION</code> using <code>DEMAND.LOSS.MW</code> (quantitative), <code>YEAR</code> (quantitative/temporal), and <code>CLIMATE.REGION</code> (nominal). The numeric columns (<code>DEMAND.LOSS.MW</code> and <code>YEAR) are median-imputed and standardized, while the categorical column (<code>CLIMATE.REGION</code>) is imputed with the most frequent value and one-hot encoded. 
+
+LinearRegression is used to learn the best-fit relationship between these transformed columns and <code>OUTAGE.DURATION</code>, then evaluated with MAE on a held-out test set.
+
+This model achieved a test MAE of 2812.73, which is quite large and can definitely be improved on. 
+
+# Final Model
+
+For the final model, I used the following features for my model:
+<ul>
+  <li><code>DEMAND.LOSS.MW</code></li>
+  <li><code>TOTAL.CUSTOMERS</code> </li>
+  <li><code>POPPCT_URBAN</code></li>
+  <li><code>DEMAND.LOSS.MW</code></li>
+  <li><code>TOTAL.CUSTOMERS</code> </li>
+  <li><code>POPPCT_URBAN</code></li>
+  <li><code>POPDEN_URBAN</code></li>
+  <li><code>AREAPCT_URBAN</code></li>
+  <li><code>YEAR</code></li>
+  <li><code>MONTH</code></li>
+  <li><code>U.S._STATE</code></li>
+  <li><code>OUTAGE.START.HOUR</code></li>
+  <li><code>CLIMATE.REGION</code></li>
+  <li><code>NERC.REGION</code></li>
+  <li><code>ANOMALY.LEVEL</code></li>
+  <li><code>PC.REALGSP.STATE</code></li>
+</ul>
+
+<code>DEMAND.LOSS.MW</code> was added since larger demand loss indicates a more severe disruption, which can be linked to outage duration. <code>TOTAL.CUSTOMERS</code> was added because regions with more total customers could have more complex power grids, which can be associated with restoration length and outage duration. The urban indicators <code>POPPCT_URBAN</code>, <code>POPDEN_URBAN</code>, and <code>AREAPCT_URBAN</code> were included because urban areas typically have higher power usage, which means restoration could be more complex, which has an effect on outage duration. <code>YEAR</code> was included since restoration processes likely changes over time, and due to the wide range of time covered by the dataset, the year the outage occurred in could have an impact on its duration. <code>MONTH</code> and <code>OUTAGE.START.HOUR</code> were included since depending on the time of the month or the day, restoration processes or response time could be different, having a potential impact on outage duration. <code>U.S._STATE</code> and <code>NERC.REGION</code> were included due to different states and regions having different power grid infrastructures. <code>CLIMATE.REGION</code> and <code>ANOMALY.LEVEL</code> were included due to the large impact climate has on power grids, as seen by the category <b>severe weather</b> in <code>CAUSE.CATEGORY</code>. <code>PC.REALGSP.STATE</code> was included due to the potential correlation between state economic strength and power grid infrastructure. 
+
+A Random Forest Regression model was chosen for its ability to model nonlinear relationships and interactions between predictors that are unlikely to be captured by a linear model. I tried 3 different values for each hyperparameter I used, which includ the number of trees (100, 300, 500), tree depth (none, 10, 20), and minimum leaf size (1, 5, 10). They were selected using 5-fold GridSearchCV, optimizing MAE to balance bias and variance.
+
+The final model achieved a test MAE of 2495.96, which is significantly lower than that of the baseline model, showing an improved predictive performance.
+
+# Fairness Analysis
